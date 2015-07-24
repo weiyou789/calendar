@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>ECode - calendar组件</title>
+
+<!--widget public/公用资源，无需修改-->
+<script type="text/javascript" src="../lib/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/ECode.tab.min.js"></script>
+<script type="text/javascript">var libpath = '../lib';</script>
+<script type="text/javascript" src="../lib/widget.public.js"></script>
+
+<!--ECode widget core/单个组件的资源文件 -->
+<script type="text/javascript" src="js/ECode.calendar.js"></script>
+<style>
+        body,input,div,span,dd,dt,dl{margin: 0;padding: 0;}
+        .calendar dd a span{display:block;width:25px;height:22px;}
+        .cal-close{position:absolute;right:5px;top:5px;display:block;width:15px;height:15px;font-size:0;background:url(images/calendarIcon.png) no-repeat right -13px;cursor:pointer;text-indent:-20px;}
+        .cal-prev,.cal-next{margin-top:90px;width:20px;height:38px;cursor:pointer;background:url(images/calendarBtn.png) no-repeat;text-indent:-30px;overflow:hidden;}
+        .cal-prev{float:left;margin-left:10px;}
+        .cal-next{float:left;margin-right:10px;background-position:-20px 0;}
+        .cal-container{float:left;margin:10px 7px 0;}
+        .calendar{float:left;position:relative;border:1px solid #cacaca;background:#fff;padding-bottom:15px;}
+        .calendar dl,.calendar dd{margin:0;padding:0;width:183px;font-size:12px; line-height:24px;}
+        .calendar dt.title-date{width:100%;background:none;border:none;color:#404040; display:block; border-bottom:1px solid #E4E4E4;font-weight:700;position:relative;}
+        .calendar dt{background:#555;float:left;width:25px;border-right:1px solid #6e6e6e; text-align:center;color:#fff;}
+        .calendar dt.last{padding-left:1px;border-right:none;}
+        .calendar dt.first{padding-left:1px;}
+        .calendar dd{clear: both;width:183px;height:139px;font-weight: 700;background:url(images/calendarFrame.png) no-repeat; margin:0;}
+        .prevyear{left:4px;width:9px;}
+        .prevmonth{ width:5px;background-position:-9px 0; left:20px;}
+        .nextyear{  width:9px;background-position:-19px 0; right:5px;}
+        .nextmonth{ width:5px;background-position:-14px 0; right:20px;}
+        .calendar dd a{float:left;width: 25px;height: 22px; overflow: hidden; text-decoration: none;margin: 1px 0 0 1px; text-align:center;color:#333;}
+        .calendar dd a.hover{background:#BBDDF4;color:#fff;}
+        .calendar dd a.weekend{background:#FAECBB;color:#fff;}
+        .calendar dd a:hover{background:#f60;color:#fff;}
+        .calendar dd a.disabled:hover,.calendar dd a.disabled{background:#fff;color:#999;cursor:default;}
+        .calendar dd a.startdate{background:#06c;color:#fff;}
+        .calendar dd a.on{background:#F70;color:#fff;}
+        .calendar dd a.yuandan,
+        .calendar dd a.chuxi,
+        .calendar dd a.chunjie,
+        .calendar dd a.yuanxiao,
+        .calendar dd a.qingming,
+        .calendar dd a.wuyi,
+        .calendar dd a.duanwu,
+        .calendar dd a.zhongqiu,
+        .calendar dd a.guoqing,
+        .calendar dd a.today
+        {text-indent:-999px;background:url(images/calendarFestival.png) no-repeat;}
+        .calendar dd a.yuandan{background-position:0 0;}
+        .calendar dd a.chuxi{background-position:0 -30px;}
+        .calendar dd a.chunjie{background-position:0 -60px;}
+        .calendar dd a.yuanxiao{background-position:0 -90px;}
+        .calendar dd a.qingming{background-position:0 -120px;}
+        .calendar dd a.wuyi{background-position:0 -150px;}
+        .calendar dd a.duanwu{background-position:0 -180px;}
+        .calendar dd a.zhongqiu{background-position:0 -210px;}
+        .calendar dd a.guoqing{background-position:0 -240px;}
+        .calendar dd a.today{background-position:0 -270px;}
+        .calendar dd a.yuandan:hover,
+        .calendar dd a.yuandan:hover .select-range,
+        .calendar dd a.yuandan .selected,
+        .calendar dd a.yuandan .start-date
+        {background:url(images/calendarFestival.png) no-repeat -31px 0;}
+        .calendar dd a.chuxi:hover,
+        .calendar dd a.chuxi:hover .select-range,
+        .calendar dd a.chuxi .selected,
+        .calendar dd a.chuxi .start-date
+        {background:url(images/calendarFestival.png) no-repeat -31px -30px;}
+        .calendar dd a.chunjie:hover,
+        .calendar dd a.chunjie:hover .select-range,
+        .calendar dd a.chunjie .selected,
+        .calendar dd a.chunjie .start-date
+        {background:url(images/calendarFestival.png) no-repeat -31px -60px;}
+        .calendar dd a.yuanxiao:hover,
+        .calendar dd a.yuanxiao:hover .select-range,
+        .calendar dd a.yuanxiao .selected,
+        .calendar dd a.yuanxiao .start-date
+        {background:url(images/calendarFestival.png) no-repeat -31px -90px;}
+        .calendar dd a.qingming:hover,
+        .calendar dd a.qingming:hover .select-range,
+        .calendar dd a.qingming .selected,
+        .calendar dd a.qingming .start-date
+        {background:url(images/calendarFestival.png) no-repeat -31px -120px;}
+        .calendar dd a.wuyi:hover,
+        .calendar dd a.wuyi:hover .select-range,
+        .calendar dd a.wuyi .selected,
+        .calendar dd a.wuyi .start-date
+        {background:url(images/calendarFestival.png) no-repeat -31px -150px;}
+        .calendar dd a.duanwu:hover,
+        .calendar dd a.duanwu:hover .select-range,
+        .calendar dd a.duanwu .selected,
+        .calendar dd a.duanwu .start-date
+        {background:url(images/calendarFestival.png) no-repeat -31px -180px;}
+        .calendar dd a.zhongqiu:hover,
+        .calendar dd a.zhongqiu:hover .select-range,
+        .calendar dd a.zhongqiu .selected,
+        .calendar dd a.zhongqiu .start-date
+        {background:url(images/calendarFestival.png) no-repeat -31px -210px;}
+        .calendar dd a.guoqing:hover,
+        .calendar dd a.guoqing:hover .select-range,
+        .calendar dd a.guoqing .selected,
+        .calendar dd a.guoqing .start-date
+        {background:url(images/calendarFestival.png) no-repeat -31px -240px;}
+        .calendar dd a.today:hover,
+        .calendar dd a.today:hover .select-range,
+        .calendar dd a.today .selected,
+        .calendar dd a.today .start-date
+        {background:url(images/calendarFestival.png) no-repeat -31px -270px;}
+        .calendar dd a.end-date,
+        .cal-end dd a:hover,
+        .cal-end dd a.select-range:hover
+        {color:#FFF;background-color:#E2AD44;}
+        .calendar dd a.yuandan .end-date,
+        .cal-end dd a.yuandan:hover,
+        .cal-end dd a.yuandan:hover .select-range
+        {background-position:-62px 0;}
+        .calendar dd a.chuxi .end-date,
+        .cal-end dd a.chuxi:hover,
+        .cal-end dd a.chuxi:hover .select-range
+        {background-position:-62px -30px;}
+        .calendar dd a.chunjie .end-date,
+        .cal-end dd a.chunjie:hover,
+        .cal-end dd a.chunjie:hover .select-range
+        {background-position:-62px -60px;}
+        .calendar dd a.yuanxiao .end-date,
+        .cal-end dd a.yuanxiao:hover,
+        .cal-end dd a.yuanxiao:hover .select-range
+        {background-position:-62px -90px;}
+        .calendar dd a.qingming .end-date,
+        .cal-end dd a.qingming:hover,
+        .cal-end dd a.qingming:hover .select-range
+        {background-position:-62px -120px;}
+        .calendar dd a.wuyi .end-date,
+        .cal-end dd a.wuyi:hover,
+        .cal-end dd a.wuyi:hover .select-range
+        {background-position:-62px -150px;}
+        .calendar dd a.duanwu .end-date,
+        .cal-end dd a.duanwu:hover,
+        .cal-end dd a.duanwu:hover .select-range
+        {background-position:-62px -180px;}
+        .calendar dd a.zhongqiu .end-date,
+        .cal-end dd a.zhongqiu:hover,
+        .cal-end dd a.zhongqiu:hover .select-range
+        {background-position:-62px -210px;}
+        .calendar dd a.guoqing .end-date,
+        .cal-end dd a.guoqing:hover,
+        .cal-end dd a.guoqing:hover .select-range
+        {background-position:-62px -240px;}
+        .calendar dd a.today .end-date,
+        .cal-end dd a.today:hover,
+        .cal-end dd a.today:hover .select-range
+        {background-position:-62px -270px;}
+        .calendar dd a.select-range{background-color:#D9F2FF;}
+        .calendar dd a.yuandan .select-range{background-position:-93px 0;}
+        .calendar dd a.chuxi .select-range{background-position:-93px -30px;}
+        .calendar dd a.chunjie .select-range{background-position:-93px -60px;}
+        .calendar dd a.yuanxiao .select-range{background-position:-93px -90px;}
+        .calendar dd a.qingming .select-range{background-position:-93px -120px;}
+        .calendar dd a.wuyi .select-range{background-position:-93px -150px;}
+        .calendar dd a.duanwu .select-range{background-position:-93px -180px;}
+        .calendar dd a.zhongqiu .select-range{background-position:-93px -210px;}
+        .calendar dd a.guoqing .select-range{background-position:-93px -240px;}
+        .calendar dd a.today .select-range{background-position:-93px -270px;}
+        .cal-end dd a.hover{background-color:#BBDDF4;}
+        .cal-end dd a.yuandan .hover{background-position:-124px 0;}
+        .cal-end dd a.chuxi .hover{background-position:-124px -30px;}
+        .cal-end dd a.chunjie .hover{background-position:-124px -60px;}
+        .cal-end dd a.yuanxiao .hover{background-position:-124px -90px;}
+        .cal-end dd a.qingming .hover{background-position:-124px -120px;}
+        .cal-end dd a.wuyi .hover{background-position:-124px -150px;}
+        .cal-end dd a.duanwu .hover{background-position:-124px -180px;}
+        .cal-end dd a.zhongqiu .hover{background-position:-124px -210px;}
+        .cal-end dd a.guoqing .hover{background-position:-124px -240px;}
+        .cal-end dd a.today .hover{background-position:-124px -270px;}
+        .calendar-time{float:left;clear:left;margin:15px 0 0 7px;color:#333;_display:inline;}
+        .calendar-time strong{font-size:14px;font-weight:700;}
+        .calendar-time .plan{clear:left;float:left;width:184px;margin-top:15px;}
+        .calendar-time .plan span{float:left;width:12px;margin-top:-6px;position:relative;z-index:2;overflow:hidden;}
+        .calendar-time .plan .barM{float:left;position:relative;width:170px;height:3px;border:1px solid #AAA;background:#D8D8D8;font-size:0;}
+        .calendar-time .plan .bar{cursor:pointer;position:absolute;left:0;top:-5px;width:17px;height:13px;background:url(images/calendarIcon.png) no-repeat;}
+        .calendar-time em.confirm-btn{float:left;clear:left;cursor:pointer;margin-top:10px;width:48px;height:24px;text-align:center;line-height:24px;background:#fafafa;border-right:1px solid #c0c0c0;border-bottom:1px solid #c0c0c0;border-left:1px solid #dfdfdf;border-top:1px solid #dfdfdf;color:#333;letter-spacing:5px;}
+        .input{border:1px solid #ccc;padding:4px;}
+</style>
+</head>
+
+<body>
+
+<div class="ui-wrap">
+	<h1>ECode.calendar - <span>日历</span></h1>
+	<div class="ui-tabs" rel="ECode-tab">
+		<ul>
+			<li class="ui-tab"><a rel="#widget-tab1" href="javascript:;">概述</a></li>
+			<li class="ui-tab"><a rel="#widget-tab2" href="javascript:;">参数</a></li>
+			<li class="ui-tab"><a rel="#widget-tab3" href="javascript:;">演示</a></li>
+		</ul>
+	</div>
+	<div id="widget-tab1" class="hide">
+		<div class="widget-intro">
+			<p>这是一款基于jQuery的日历插件，特点如下：</p>
+			<p>1、支持在任何标签上挂载</p>
+			<p>2、支持select选择模式</p>
+            <p>3、支持多个日历模式</p>
+            <p>4、支持显示节假日</p>
+            <p>5、支持限制可选日期</p>
+			<p>6、解决了IE6上select标签穿透BUG</p>
+            <p>7、支持标记选中日期前的日期</p>
+            <p>8、支持星期可以选</p>
+            <p>9、支持日历弹框位置微调</p>
+            <p>10、支持时间轴</p>
+		</div>
+		<div class="widget-log">
+			<h2>更新日志：</h2>
+			<dl>
+				<dt>1.0 开发版 [2012-08-28]</dt>
+				<dd>
+					<p>初始版本建立</p>
+				</dd>
+                <dt>2.0 开发版 [2013-08-20]</dt>
+                <dd>
+                    <p>完善版本，新增多种功能</p>
+                </dd>
+			</dl>
+		</div>
+
+	</div>
+	<div id="widget-tab2" class="hide">
+		<div class="widget-arguments">
+			<div class="widget-call">
+				ECode.calendar(
+					object
+					<em>[isSelect],</em>
+                    <em>[showbox],</em>
+                    <em>[range],</em>
+                    <em>[count],</em>
+                    <em>[startdate],</em>
+                    <em>[flag],</em>
+                    <em>[pos],</em>
+                    <em>[isWeek],</em>
+                    <em>[isTime],</em>
+                    <em>[startTime],</em>
+                    <em>[callback],</em>
+				);
+			</div>
+			<table class="arguments-list">
+				<thead>
+					<tr>
+						<th width="160">名称</th>
+						<th width="160">类型</th>
+						<th width="100">默认值</th>
+						<th>描述</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>object</th>
+						<td>jQuery Object</td>
+						<td>null</td>
+						<td>绑定弹出日历的钩子，必须为一个使用jQuery选择器匹配的对象(必须为#id)。</td>
+					</tr>
+					<tr>
+						<th>isSelect</th>
+						<td>Boolean</td>
+						<td>false</td>
+						<td>
+							默认不可以直接选择年份和月份，如果为true，则可以选择；
+						</td>
+					</tr>
+                    <tr>
+						<th>showbox</th>
+						<td>jQuery Object</td>
+						<td>null</td>
+						<td>
+							默认在挂载的input上面显示，如需在其他dom元素中显示日期填入一个jQuery选择器匹配的对象(#id和.class都可)
+						</td>
+					</tr>
+                    <tr>
+						<th>range</th>
+						<td>Object,string</td>
+						<td>{mindate:new Date(),maxdate:"2012-12-31"}</td>
+						<td>
+						    限制日历可选范围，默认为今天到2012-12-31日
+						</td>
+					</tr>
+                    <tr>
+						<th>count</th>
+						<td>number</td>
+						<td>1</td>
+						<td>
+						    日历个数,默认为1个
+						</td>
+					</tr>
+                    <tr>
+						<th>startdate</th>
+						<td>string</td>
+						<td>null</td>
+						<td>
+						    出发日期
+						</td>
+					</tr>
+                    <tr>
+						<th>flag</th>
+						<td>Boolean</td>
+						<td>true</td>
+						<td>
+						    是否标记选中日期前的日期
+						</td>
+					</tr>
+                    <tr>
+                        <th>pos</th>
+                        <td>object,number</td>
+                        <td>{right:0,top:0}</td>
+                        <td>
+                            位置微调向右偏离多少，向上偏离多少
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>isWeek</th>
+                        <td>Boolean</td>
+                        <td>true</td>
+                        <td>
+                            是否显示星期
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>isTime</th>
+                        <td>Boolean</td>
+                        <td>false</td>
+                        <td>
+                            是否显示时间轴
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>startTime</th>
+                        <td>array</td>
+                        <td>[]</td>
+                        <td>
+                            时间轴上初始时间
+                        </td>
+                    </tr>
+                    <tr>
+						<th>callback</th>
+						<td>Function</td>
+						<td>function(){}</td>
+						<td>
+						    选择日期后回调函数
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div id="widget-tab3" class="hide">
+
+<!--演示 start-->
+<div class="widget-arguments">
+
+<h3>资源文件</h3>
+<textarea class="highlight xml">
+&lt;script type="text/javascript" src="jquery.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="ECode.calendar.js"&gt;&lt;/script&gt;
+</textarea>
+<div id="demo-wrap" class="demo-wrap">
+    <input type="text" value="" class="input" id="date01">
+    <input type="text" value="本月前的日期可选" class="input" id="date02">
+    <input type="text" value="有时间轴日历弹框" class="input" id="date03">
+    <div id="date04" style="margin-top:100px;width:50px;height:50px;background:#000;color:#fff;">
+        可以把日期填入下面
+    </div>
+    <input type="text" class="input" id="show">
+    <div id="date05" style="margin-top:20px;width:150px;height:50px;background:#000;color:#fff;">
+        这个标签也可以当日历
+    </div>
+</div>
+
+</div>
+<!--演示 end-->
+
+	</div>
+</div>
+
+<script type="text/javascript">
+$(function(){
+	ECode.tab($(".ui-wrap"),0, function(id){
+		if(id=='widget-tab3'){
+			ECode.tab($("#demo-wrap"), function(id){
+				var obj = $("#"+id);
+				if( $.trim(obj.html())=='' ){
+					var rnd = new Date().getTime();
+					var data = obj.attr("data")+"?"+rnd;
+					var dom = '<iframe scrolling="auto" frameborder="0" width="100%" height="500" src="'+ data +'"></iframe>';
+					obj.append(dom);
+				}
+			});
+		}
+	});
+    function formatNum(num){//补0
+        return num.toString().replace(/^(\d)$/, "0$1");
+    }
+    function formatStrDate(vArg){//格式化日期
+        switch(typeof vArg) {
+            case "string":
+                vArg = vArg.split(/-|\//g);
+                return vArg[0] + "-" + formatNum(vArg[1]) + "-" + formatNum(vArg[2]);
+                break;
+            case "object":
+                return vArg.getFullYear() + "-" + formatNum(vArg.getMonth() + 1) + "-" + formatNum(vArg.getDate());
+                break;
+		}
+    };
+    $("#date01").val(formatStrDate(new Date()))
+    $("#date02").focus(function(){
+        //var d = $("#date01").val();
+        ECode.calendar({inputBox:"#date02",count:2,range:{mindate:"2014-01-18",maxdate:"2014-04-04"}});
+    });
+    ECode.calendar({inputBox:"#date01",count:2,flag:true,startdate:"2014-01-31"});//默认日历
+    ECode.calendar({inputBox:"#date03",isSelect:true,flag:false,isTime:true,isWeek:false});//可以选择年份和月份
+    ECode.calendar({inputBox:"#date04",showbox:"#show"});
+    ECode.calendar({inputBox:"#date05"});
+});
+</script>
+</body>
+</html>

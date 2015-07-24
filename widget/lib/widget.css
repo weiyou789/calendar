@@ -1,0 +1,77 @@
+@charset "utf-8";
+body,h1,h2,h3,h4,h5,h6,hr,p,dl,dt,dd,ul,ol,li,form,fieldset,legend,button,input,textarea,th,td{margin:0;padding:0;}
+body,button,input,select,textarea{font:12px/1.5 tahoma,arial,\5b8b\4f53;}
+h1,h2,h3,h4,h5,h6{font-size:100%;}
+em,i{font-style:normal;}
+fieldset,img{border:0;}
+a{text-decoration:none;outline:none;blr:expression(this.onFocus=this.blur());}
+a:hover{color:#f60;text-decoration:underline;}
+.clear{clear:both;display:block;height:0;overflow:hidden;font-size:0;}
+button,input,select,textarea{font-size:100%;outline:none}
+table{border-collapse:collapse;border-spacing:0;}
+ul{padding:0;margin:0;}
+li{list-style:none;}
+.hide, .undis{display:none;}
+.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+.clearfix{zoom:1;}
+
+/*ui-wrap*/
+.ui-wrap{margin:0 10px;font:12px/1.5 Tahoma, Arial;}
+.ui-wrap h1{font-size:18px;font-weight:normal;padding:10px 15px 0;}
+.ui-wrap h1 span{font-size:16px;}
+
+/*ui-tabs*/
+.ui-tabs{height:36px;margin-top:10px;padding-left:8px;border-bottom:1px solid #ddd;}
+.ui-tabs ul{position:relative;float:left;margin:0 0 -1px 10px;font-family:"Microsoft YaHei";}
+.ui-tabs li{position:relative;float:left;height:32px;margin:4px 0 0 -1px;}
+.ui-tabs li a{display:inline-block;padding:0 25px;height:31px;line-height:31px;outline:none;font-size:16px;text-decoration:none;background:#F1F1F1;color:#7F7F7F;border:1px solid #DFDEDE;border-bottom:0;font-family:"Microsoft YaHei";}
+.ui-tabs li a.selected{height:32px;line-height:32px;background:#fff;color:#333;border:1px solid #ddd;border-bottom:0;font-family:"Microsoft YaHei";}
+.ui-tabs li a:hover{color:#7F7F7F;text-decoration:none;}
+
+/*widget-intro*/
+.widget-intro, .widget-log{ padding:20px 10px;font-size:14px;}
+.widget-intro p{ padding:3px 0;}
+.widget-log h2{padding-bottom:5px;}
+.widget-log dl{font-size:12px;padding-bottom:10px;line-height:1.7em;}
+.widget-log dt{font-weight:bold;}
+.widget-log dd{padding-left:2em;}
+.widget-arguments{margin:10px;}
+.widget-arguments:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+.widget-call{font-size:16px;font-weight:normal;padding:6px 10px;margin:20px 0;background:#000;color:#ffe71c;font-weight:bold;}
+.widget-call em{color:#EAEAEA;font-style:italic;font-weight:normal;}
+.arguments-list{width:100%;border-right:1px solid #ddd;border-bottom:1px solid #ddd;}
+.arguments-list th{font-size:14px;font-weight:bold; background:#F3F3F3;}
+.arguments-list th, .arguments-list td{padding:5px 0;text-align:center;border-left:1px solid #ddd;border-top:1px solid #ddd;}
+.arguments-list tbody th, .arguments-list tbody td{text-align:left;padding:5px 8px;background:none;}
+.arguments-list caption{font-weight:bold;padding:5px 0;text-align:left;font-size:14px;margin-top:10px;}
+
+/*demo-wrap*/
+.demo-wrap{width:100%;float:left;margin-top:20px;}
+.demo-table{width:100%;}
+.demo-table td{vertical-align:top;} 
+.demo-tags{width:180px;}
+.demo-tags ul{position:relative;z-index:10;width:179px;margin:0 0 -1px 0;font-family:"Microsoft YaHei";}
+.demo-tags li{position:relative;display:block;width:100%;float:left;height:32px;margin-bottom:-1px;}
+.demo-tags li a{display:block;height:31px;line-height:31px;outline:none;font-size:16px;text-decoration:none;background:#F1F1F1;color:#7F7F7F;border:1px solid #DFDEDE;font-family:"Microsoft YaHei";text-indent:1em;}
+.demo-tags li a:hover{color:#7F7F7F;background:#f5f5f5;text-decoration:none;}
+.demo-tags li a.selected, .tools-tags li a.selected:hover{height:32px;line-height:32px;background:#fff;color:#333;border:1px solid #ddd;border-right:0;;font-family:"Microsoft YaHei";}
+.demo-content{position:relative;z-index:1;padding:5px 20px 20px;border:1px solid #ddd;margin-left:-2px;min-height:500px;_height:500px;}
+
+/*highlight*/
+.highlight{}
+.highlight-wrap{position:relative;width:99.8%;float:left;margin-top:0px;}
+.highlight-wrap pre{margin:0;padding:0;width:100%;}
+.highlight-wrap code{padding:5px;min-height:24px;_height:24px;font-family:"Courier New", "Times New Roman";white-space:pre-wrap;word-wrap:break-word;}
+.highlight-wrap .clip{position:absolute;right:5px;top:6px;width:20px;height:20px;}
+.highlight-wrap .clipBtn{width:20px;height:20px;border:0;background:url(images/copy2.png) no-repeat;}
+.widget-arguments h3, .demo-page h3{padding:10px 0 5px;width:100%;float:left;font-size:14px;}
+
+/*demo-page*/
+
+
+
+
+
+
+
+
